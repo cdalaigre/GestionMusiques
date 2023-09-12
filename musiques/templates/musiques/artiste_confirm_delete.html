@@ -1,0 +1,16 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class="center">
+	<form method="post" class="card">
+		{% csrf_token %}
+		<h2>Suppression d'un artiste</h2>
+		<p>Etes vous sûr de vouloir supprimer l'artiste "{{object.nom}}"?</p>
+		<p class="form-buttons">
+			<input type="submit" class="btn btn-primary" value="Supprimer">
+			<a href="{% url 'artistes' %}" class="btn btn-outline">Annuler</a>
+		</p>
+	</form>
+</div>
+
+{%endblock content%}

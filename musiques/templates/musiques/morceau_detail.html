@@ -1,0 +1,25 @@
+{%extends 'base.html'%}
+
+{% block title %}
+Application Musiques
+{% endblock %}
+
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
+{% endblock %}
+
+{%block content%}
+<article class="task">
+	<header>
+        <h2>Détail du morceau</h2>
+        <li>Titre : {{object.titre}}</li>
+        {% if object.date_sortie %}
+        <li>Date de sortie : {{object.date_sortie}}</li>
+        {% endif %}
+        <li>Interprète : {{object.fk_artiste.nom}}</li>
+    </header>
+</article>    
+{%endblock content%}

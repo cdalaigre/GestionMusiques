@@ -1,0 +1,35 @@
+{%extends 'base.html'%}
+
+{% block title %}
+Application Musiques
+{% endblock %}
+
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
+{% endblock %}
+
+{%block content%}
+
+<div class="center">
+	<h2>Mes Artistes</h2>
+	{% if artistes %}
+	<ul class="tasks">
+		{% for artiste in artistes %}
+            
+			<li><a href="{% url 'artiste' artiste.id %}">{{ artiste.nom }}</a>
+				<div class="task-controls">
+					<a href="{%url 'artiste-delete' artiste.id %}"><i class="fas fa-trash"></i></a>
+					<a href="{%url 'artiste-update' artiste.id %}"><i class="fas fa-pen"></i></a>		     
+				</div>
+			</li>
+		{% endfor %}
+    </ul>
+	{% else %}
+		<p>🎉 Il n'y a aucun artiste en base ! <a href="{%url 'artiste-create'%}">Créer un artiste</a></p>
+	{% endif %}
+	
+</div>
+{%endblock content%}

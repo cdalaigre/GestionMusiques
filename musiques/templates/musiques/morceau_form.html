@@ -1,0 +1,61 @@
+{%extends 'base.html'%}
+
+{% block title %}
+Application Musiques
+{% endblock %}
+
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous">
+{% endblock %}
+
+{%block content%}
+
+<div class="center">
+ <form method="post" novalidate class="card">
+ 	{%csrf_token %}
+ 	<h2>{% if morceau %} Mise à jour {%else %} Création {%endif%} d'un morceau</h2>
+    <label for="id_titre">Titre:</label>
+    <input type="text" name="titre" value="{{ morceau.titre }}" maxlength="64" required id="id_titre">
+   
+    <label for="id_date_sortie">Date sortie:</label>
+    {% if morceau.date_sortie.value %} 
+    <input type="date" name="date_sortie" value="{{ morceau.date_sortie }}" id="id_date_sortie">
+    {%else%}
+    <input type="date" name="date_sortie" value="" id="id_date_sortie">
+    {%endif%}
+    
+    {% if morceau %}
+        <label for="id_fk_artiste">Interprète</label> 
+        <select name="fk_artiste" required id="id_fk_artiste">
+            <option value="">---------</option>
+            {% for artiste in mesArtistes %}
+                {% if artiste.nom == morceau.fk_artiste.nom %}
+                        <option value="{{artiste.id}}"  selected>{{artiste.nom}}</option>
+                {% else %}
+                        <option value="{{artiste.id}}">{{artiste.nom}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    {%else %}
+    <label for="id_fk_artiste">Interprète</label> 
+    <select name="fk_artiste" required id="id_fk_artiste">
+        <option value="">---------</option>
+        {% for artiste in mesArtistes %}
+            <option value="{{artiste.id}}">{{artiste.nom}}</option>
+        {% endfor %}
+    </select>
+    {% endif %}
+
+    <div class="form-buttons">
+		<input type="submit" value="Sauvegarder" class="btn btn-primary"/>
+		<a href="{%url 'morceaux'%}" class="btn btn-outline">Annuler</a>
+	</div>
+	
+
+</form>
+</div>
+
+{%endblock content%}

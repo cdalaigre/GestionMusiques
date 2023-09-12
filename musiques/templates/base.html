@@ -1,0 +1,54 @@
+<!doctype html>
+{% load static %}
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock %}</title>
+        {% block metas %}
+        <meta name="viewport" content="width=device-width,initial-scale =1,shrink-to-fit=no">
+        {% endblock %}
+        {% block styles %}
+        <link rel="stylesheet" href="{% static 'css/mon.css' %}">
+        <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+       
+        {% endblock %}
+    </head>
+    <body>
+            {% block nav %}
+            <nav class="nav">
+                {% block navtitle %}{% endblock %}
+                <a href="{% url 'artistes' %}"><i class="bi bi-list-task"></i>Mes Artistes</a>
+                <a href="{% url 'artiste-create' %}"><i class="bi bi-plus-circle"></i>Créer un artiste</a>
+                <a href="{% url 'morceaux' %}"><i class="bi bi-list-task"></i>Mes Morceaux</a>
+                <a href="{% url 'morceau-create' %}"><i class="bi bi-plus-circle"></i>Créer un morceau</a>
+            </nav>
+            {% endblock %}
+            <main role="main" class="container top-pushed">
+                <div class="container">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{message.tags}}">
+                                {{message}}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    <div class="jumbotron">
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </main >
+            
+            <footer class="footer">
+                <div class="container">
+                   <p>&copy; Copyright {% now "Y" %} by Titof Production Copyrigh (c)</p>
+                </div>
+            </footer>
+        {% block js %}
+        <!--script src="{% static 'node_modules/jquery-slim/dist/jquery-slim.min.js' %}"></script>
+        <script src="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.js' %}"></script>
+        <script src="{% static 'node_modules/popper.js/dist/popper.min.js' %}"></script-->
+        {% endblock %}
+    </body>
+</html>
