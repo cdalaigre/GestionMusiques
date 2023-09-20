@@ -1,25 +1,26 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.urls.exceptions import NoReverseMatch
-from musiques.models import Morceau
+from musiques.models import Morceau,Artiste
 
 # Create your tests here.
 class MorceauTestCase(TestCase):
 
     def setUp(self):
-        Morceau.objects.create(titre='musique1', artiste='artise1')
-        Morceau.objects.create(titre='musique2', artiste='artise2')
-        Morceau.objects.create(titre='musique3', artiste='artise3')
-
+        Artiste.objects.create(nom="artisteTest")
+        artiste = Artiste.objects.get(nom="artisteTest")
+        Morceau.objects.create(titre='musiqueTest', fk_artiste=artiste)
+   
+        
     def test_morceau_url_name(self):
         try:
-            url = reverse('musiques:morceau-detail', args=[1])
+            url = reverse('morceau-detail', args=[1])
         except NoReverseMatch:
             assert False
 
     def test_morceau_url(self):
-        morceau = Morceau.objects.get(titre='musique1')
-        url = reverse('musiques:morceau-detail', args=[morceau.pk])
+        morceau = Morceau.objects.get(titre='musiqueTest')
+        url = reverse('morceau-detail', args=[morceau.pk])
         response = self.client.get(url)
         assert response.status_code == 200
         

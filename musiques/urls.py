@@ -7,6 +7,7 @@ from musiques import views
 urlpatterns = [
     path('morceaux', MorceauList.as_view(), name='morceaux'),
     path('morceau/<int:pk>', MorceauDetail.as_view(), name='morceau'),
+    path('<int:pk>', morceau_detail, name='morceau-detail'),
     path('morceau/create', MorceauCreate.as_view(), name='morceau-create'),
     path('morceau/update/<int:pk>', MorceauUpdate.as_view(), name='morceau-update'),
     path('morceau/delete/<int:pk>', MorceauDelete.as_view(), name='morceau-delete'),
